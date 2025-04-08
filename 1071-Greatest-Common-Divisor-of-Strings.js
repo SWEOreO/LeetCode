@@ -18,3 +18,50 @@
 // Output: ""
 
 
+// Solution - recursive - use GCD
+var gcdOfStrings = function(str1, str2) {
+  if (str1 + str2 !== str2 + str1) {
+      return "";
+  }
+  const maxLength = myFunction(str1.length, str2.length);
+  return str1.substring(0, maxLength);
+};
+
+function myFunction(a, b) {
+  if (b === 0) {
+      return a;
+  }
+  return myFunction(b, a % b);
+}
+
+// Solution 2: similar as S1 , both use GCD - use slice
+var gcdOfStrings = function(str1, str2) {
+  if (str1 + str2 !== str2 + str1) {
+      return "";
+  }
+
+  const gcd = (len1, len2) => { //greatest common divisor  
+      while (len2 !== 0) { 
+          [len1, len2] = [len2, len1 % len2]; // swap
+      }
+      return len1;
+  };
+
+  return str1.slice(0, gcd(str1.length, str2.length));  
+};
+
+
+// Solution 3 - Brute Force
+var gcdOfStrings = function(str1, str2) {
+  if (str1 + str2 !== str2 + str1) {
+      return "";
+  }
+
+  const minLength = Math.min(str1.length, str2.length);
+  for (let i = minLength; i > 0; i--) {
+      if (str1.slice(0, i) === str2.slice(0, i) && str1.length % i === 0 && str2.length % i === 0) {
+          return str1.slice(0, i);
+      }
+  }
+  return "";
+};
