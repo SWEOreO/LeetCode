@@ -45,26 +45,93 @@ word1 and word2 consist of lowercase English letters.
 // usage of result.join 
 
 
-// Solution 1
-
-/**
- * @param {string} word1
- * @param {string} word2
- * @return {string}
- */
+// Solution 1 - naive Solution
+// Time Complexity: O(n)
+// Space Complexity: O(n)
 var mergeAlternately = function(word1, word2) {
-  const minL = Math.min(word1.length, word2.length)
-  const maxL = Math.max(word1.length, word2.length)
-  const longestWord = word1.length > word2.length ? word1 : word2
-  const result = []
+  const minL = Math.min(word1.length, word2.length);
+  const maxL = Math.max(word1.length, word2.length);
+  const longestWord = word1.length > word2.length ? word1 : word2;
+  const result = [];
 
   for (let i = 0; i < minL; i++) {
-    result.push(word1[i], word2[i])
+    result.push(word1[i], word2[i]);
   }
   
   for (let i = minL; i < maxL; i++) {
-    result.push(longestWord[i])
+    result.push(longestWord[i]);
   }
 
-  return result.join('')
+  return result.join('');
 };
+
+
+// S1 - but cleaner
+var mergeAlternately = function(word1, word2) {
+  let result = '';
+   for (let i = 0; i < Math.max(word1.length, word2.length); i++) {
+     if (i < word1.length) result += word1[i];
+     if (i < word2.length) result += word2[i];
+   }
+   return result;
+ };
+
+ // S1 - slightly different expression
+ var mergeAlternately = function(word1, word2) {
+  let res = "";
+  let i = 0;
+  while (i < word1.length || i < word2.length) {
+      if (i < word1.length) res += word1[i];
+      if (i < word2.length) res += word2[i];
+      i++;
+  }
+  return res;
+};
+
+// Solution 2 - using recursion
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+var mergeAlternately = function(word1, word2) {
+  if (word1.length === 0) return word2;
+  if (word2.length === 0) return word1;
+
+  return word1[0] + word2[0] + mergeAlternately(word1.slice(1), word2.slice(1));
+};
+
+// Solution 3 - using recursion with memoization
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+var mergeAlternately = function(word1, word2) {
+  const memo = {};
+  
+  function helper(i, j) {
+    if (i >= word1.length && j >= word2.length) return '';
+    if (memo[`${i}-${j}`]) return memo[`${i}-${j}`];
+
+    let result = '';
+    if (i < word1.length) result += word1[i];
+    if (j < word2.length) result += word2[j];
+
+    result += helper(i + 1, j + 1);
+    memo[`${i}-${j}`] = result;
+    return result;
+  }
+
+  return helper(0, 0);
+};
+
+// Solution 4 - using a while loop
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+var mergeAlternately = function(word1, word2) {
+  let result = '';
+  let i = 0, j = 0;
+
+  while (i < word1.length || j < word2.length) {
+    if (i < word1.length) result += word1[i++];
+    if (j < word2.length) result += word2[j++];
+  }
+
+  return result;
+};
+
