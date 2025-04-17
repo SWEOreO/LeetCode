@@ -25,29 +25,6 @@
 // 0 <= s.length <= 5 * 104
 // s consists of English letters, digits, symbols and spaces.
 
-// My Solution - wrong answer!!!!!! again
-// Time Complexity: O(n)
-// Space Complexity: O(n)
-
-var lengthOfLongestSubstring = function(s) {
-  let count = 0;
-  let res = count;
-  let mySet = new Set();
-  let i = 0;
- 
-  while (i < s.length) {
-   if (!mySet.has(s[i])) {
-     mySet.add(s[i]);
-     count++;
-     i++;
-     res = Math.max(res, count);
-   } else {
-     i++;
-     count = 1;
-   } 
- }
-   return res; 
- };
 
  // --------------------------------------------------------------
  // Solution 1 - Sliding Window
@@ -73,6 +50,24 @@ var lengthOfLongestSubstring = function(s) {
     return maxLength;
 }
 
+// --------------------------------------------------------------
+
+var lengthOfLongestSubstring = function(s) {
+  const set = new Set();
+  let l = 0, longest = 0;
+
+  for (let r = 0; r < s.length; r++) {
+      while (set.has(s[r])) {
+          set.delete(s[l]);
+          l++;
+      }
+
+      longest = Math.max(longest, r - l + 1);
+      set.add(s[r]);
+  }
+
+  return longest;
+};
 
 // --------------------------------------------------------------
 // Solution 2 - brute force
@@ -97,21 +92,6 @@ var lengthOfLongestSubstring = function(s) {
   return longest;
 };
 
-// --------------------------------------------------------------
 
-var lengthOfLongestSubstring = function(s) {
-  const set = new Set();
-  let l = 0, longest = 0;
 
-  for (let r = 0; r < s.length; r++) {
-      while (set.has(s[r])) {
-          set.delete(s[l]);
-          l++;
-      }
 
-      longest = Math.max(longest, r - l + 1);
-      set.add(s[r]);
-  }
-
-  return longest;
-};
