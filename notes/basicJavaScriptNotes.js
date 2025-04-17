@@ -400,3 +400,17 @@ const sortedPeople2 = people.sort(function(a, b){
   }
 });
 console.log(sortedPeople2);
+
+
+// chainable methods
+const chainablePeople = people
+  .filter(function(person){
+    return person.age > 30;
+  })
+  .map(function(person){
+    return `${person.firstName} ${person.lastName}`;
+  })
+  .sort(function(a, b){
+    return a.localeCompare(b);
+  });
+console.log(chainablePeople);
