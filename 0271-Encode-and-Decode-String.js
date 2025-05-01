@@ -52,3 +52,57 @@
  
 
 // Follow up: Could you write a generalized algorithm to work on any possible set of characters?
+
+
+// Solution 1
+// "appleĀbananaĀcherry" // Ā = Unicode 257
+// String.fromCharCode(257) creates a special separator character — in this case, Unicode character with code 257.
+var encode = function(strs) {
+  return strs.join(String.fromCharCode(257));
+};
+
+var decode = function(s) {
+  return s.split(String.fromCharCode(257));
+};
+
+// similar solution 
+const encode = (strs) => strs.join('😝');
+const decode = (s) => s.split('😝');
+
+// Solution 2 - use JSON
+var encode = function(strs) {
+  return JSON.stringify(strs)
+};
+
+var decode = function(s) {
+  return JSON.parse(s)
+};
+
+// Solution 3 - similar to 1, use "#" to seperate the string
+// Encoder
+function encode(strs) {
+  return strs.map(str => `${str.length}#${str}`).join('');
+}
+
+// Decoder
+function decode(s) {
+  const result = [];
+  let i = 0;
+
+  while (i < s.length) {
+    let j = i;
+
+    // Find the delimiter to get the length
+    while (s[j] !== '#' && j < s.length) {
+      j++;
+    }
+
+    const len = parseInt(s.slice(i, j), 10); // from i to j (not including '#')
+    const str = s.slice(j + 1, j + 1 + len); // string starts after '#' and has `len` characters
+
+    result.push(str);
+    i = j + 1 + len; // move to the next encoded string
+  }
+
+  return result;
+}
