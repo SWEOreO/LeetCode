@@ -36,7 +36,7 @@ var topKFrequent = function(nums, k) {
           heap.add([freq, num]);
       } else {
           heap.add([freq, num]);
-          heap.poll();
+          heap.poll(); // need to install this function
       }
   }
 
