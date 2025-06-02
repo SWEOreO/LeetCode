@@ -27,10 +27,6 @@
 // text.substring(startIndex, endIndex), will return to a new string
 
 // Solution 1
-/**
- * @param {string[]} strs
- * @return {string}
- */
 var longestCommonPrefix = function(strs) {
   if (strs.length === 0) return "";
 
@@ -55,10 +51,6 @@ var longestCommonPrefix = function(strs) {
   }
 
   // Solutiuon 2 - use first string as a reference
-  /**
-   * @param {string[]} strs
-   * @return {string}
-   */
   var longestCommonPrefix = function(strs) {
     let pref = strs[0];
     let prefLen = pref.length;
@@ -79,10 +71,6 @@ var longestCommonPrefix = function(strs) {
 
 
 // Solution 3 - use first string as a reference and trim the prefix
-/**
- * @param {string[]} strs
- * @return {string}
- */
 var longestCommonPrefix = function(strs) {
 
   if (strs.length === 0) return "";
