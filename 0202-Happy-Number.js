@@ -26,12 +26,12 @@
 const squares = {'0':0, '1':1, '2':4, '3':9, '4':16, '5':25, '6':36, '7':49, '8':64, '9':81}
 
 var isHappy = function(n) {
-  let myMap = new Map();
+  let mySet = new Set();
 
-  while (!myMap.has(n)) {
-      myMap.set(n,1);
+  while(!mySet.has(n)) {
+      mySet.add(n);
       let s = n.toString();
-      n = 0;
+      n = 0
 
       for (let i = 0; i < s.length; i++) {
           n += squares[s[i]];
@@ -44,3 +44,23 @@ var isHappy = function(n) {
 };
 
 
+// Solution 2 
+var isHappy = function(n) {
+  if(n<10){
+      if(n === 1 || n === 7){
+          return true
+      }
+      return false
+  }
+  let total = 0
+  while(n>0){
+      let sq = n % 10
+      total += sq**2
+      n -= sq
+      n /= 10
+  }
+  if(total === 1){
+      return true
+  }
+  return isHappy(total)
+};

@@ -48,21 +48,21 @@ var longestConsecutive = function(nums) {
 
 // Solution 1 - HashSet
 
-var longestConsecutive = function(nums) {
-  const set = new Set(nums);
-  let longest = 0;
+const longestConsecutive = function(nums) {
 
-  for (const num of set) {
-      if (!set.has(num - 1)) {
-          let length = 1;
-          let nextNum = num + 1;
-          while (set.has(nextNum)) {
-              length++;
-              nextNum++;
-          }
-          longest = Math.max(longest, length);
-      }
-  }
-
-  return longest;
-};
+    let set = new Set(nums);
+    let res = 0;
+ 
+     for (const num of set) {
+         if (!set.has(num - 1)) {
+             let next = num + 1;
+             let len = 1;
+             while(set.has(next)){
+                 len++;
+                 next++;
+             }
+             res = Math.max(res, len)
+         }
+     }
+    return res;
+ };

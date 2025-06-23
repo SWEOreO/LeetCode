@@ -24,19 +24,12 @@
 
 
 // Solution - hash map
-/**
- * @param {number[]} nums
- * @param {number} k
- * @return {boolean}
- */
 var containsNearbyDuplicate = function(nums, k) {
-  const myMap = new Map();
-  for (let i = 0; i < nums.length; i++) {
-    if (i - myMap.get(nums[i]) <= k) {
-      return true;
-    }
+  let map = new Map();
 
-    myMap.set(nums[i], i);
+  for (let i = 0; i < nums.length; i++) {
+      if (i - map.get(nums[i]) <=k) return true;
+      map.set(nums[i], i);
   }
 
   return false;
@@ -44,11 +37,6 @@ var containsNearbyDuplicate = function(nums, k) {
 
 
 // different expression 
-/**
- * @param {number[]} nums
- * @param {number} k
- * @return {boolean}
- */
 var containsNearbyDuplicate = function(nums, k) {
   let map = new Map();
   let difference = 0;
